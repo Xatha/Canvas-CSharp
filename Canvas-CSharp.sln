@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Canvas-CSharp", "Canvas-CSharp\Canvas-CSharp.csproj", "{4DFAB895-A8CE-406E-88AB-451AED2059A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanvasTests", "CanvasTests\CanvasTests.csproj", "{82FAAED4-2C03-42AB-800B-8950D38F2A0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanvasApp", "CanvasApp\CanvasApp.csproj", "{0040A06B-2E9D-42E6-9A76-85478529D798}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{4DFAB895-A8CE-406E-88AB-451AED2059A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DFAB895-A8CE-406E-88AB-451AED2059A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DFAB895-A8CE-406E-88AB-451AED2059A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82FAAED4-2C03-42AB-800B-8950D38F2A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82FAAED4-2C03-42AB-800B-8950D38F2A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82FAAED4-2C03-42AB-800B-8950D38F2A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82FAAED4-2C03-42AB-800B-8950D38F2A0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0040A06B-2E9D-42E6-9A76-85478529D798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0040A06B-2E9D-42E6-9A76-85478529D798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0040A06B-2E9D-42E6-9A76-85478529D798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0040A06B-2E9D-42E6-9A76-85478529D798}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
