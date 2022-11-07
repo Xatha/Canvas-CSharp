@@ -8,8 +8,8 @@ We start by creating a window.
 ```c#
 var window = new Window("Name", 500, 500);
 ```
+We supply the window with the window title and resolution.
 
-The name is the title of the program, and the two integers is the width and height respectively. We now have to defined how we want to draw our scene.
 ```c#
 Canvas Draw(Canvas canvas)
 {
