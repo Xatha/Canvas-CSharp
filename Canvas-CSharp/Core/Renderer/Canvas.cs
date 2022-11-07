@@ -6,7 +6,7 @@ public readonly struct Canvas
     public int ViewHeight { get; }
     
     internal Renderer Renderer { get; }
-    
+
     internal Canvas(int viewWidth, int viewHeight, Renderer renderer)
     {
         ViewWidth = viewWidth;

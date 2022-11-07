@@ -1,19 +1,18 @@
-using System.Diagnostics;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using Canvas_CSharp.Core.Controls;
 using Canvas_CSharp.Core.Utility;
 using static SDL2.SDL;
 
 namespace Canvas_CSharp.Core.Renderer;
 
-internal class Renderer
+internal sealed class Renderer
 {
     private readonly int _viewWidth;
     private readonly int _viewHeight;
     private readonly SDL_WindowFlags _windowFlags;
-
-    internal IntPtr SdlRenderer { get; private set; } = IntPtr.Zero;
+    
+    internal IntPtr SdlRenderer { get; private set; }
+    internal IntPtr SdlWindow { get; private set; }
 
     internal Renderer(Window window)
     {
@@ -21,38 +20,38 @@ internal class Renderer
         _viewHeight = window.ViewHeight;
         _windowFlags = window.WindowFlags;
     }
-    
+
     internal void RunApp<TState>(string title, int viewWidth, int viewHeight, TState state, 
         Func<Canvas, TState, Canvas> draw,
         Func<TState, Key, Option<TState>> onKeyPressed) where TState : notnull
     {
         SDL_Init(SDL_INIT_VIDEO);
 
-        var window = SDL_CreateWindow(title, 50, 50, viewWidth, viewHeight, _windowFlags);
-        SdlRenderer = SDL_CreateRenderer(window, -1, SDL_RendererFlags.SDL_RENDERER_ACCELERATED); 
-        
-        SDL_SetWindowTitle(window, title);
-        
-        //SDL.SDL_CreateWindowAndRenderer(viewWidth, viewHeight, _windowFlags, out var window, out var sdlRenderer);
+        SdlWindow = SDL_CreateWindow(title, 50, 50, viewWidth, viewHeight, _windowFlags);
+        SDL_SetWindowTitle(SdlWindow, title);
 
+        SdlRenderer = SDL_CreateRenderer(SdlWindow, -1, SDL_RendererFlags.SDL_RENDERER_ACCELERATED); 
         var texture = SDL_CreateTexture(SdlRenderer, SDL_PIXELFORMAT_ABGR8888, 1, viewWidth, viewHeight);
-        
+
         var shouldDraw = true;
         while (true)
         {
             if (shouldDraw)
             {
+                #if DEBUG
                 Console.WriteLine("Draw!");
-               
                 var start = SDL_GetTicks();
                 
                 Draw(draw, state);
                 
                 var end = SDL_GetTicks();
-                
                 var time = end - start;
                 Console.WriteLine($"Frame took {time} ms.");
-
+                #else
+                
+                Draw(draw, state);
+                
+                #endif
                 shouldDraw = false;
             }
 
@@ -74,20 +73,18 @@ internal class Renderer
                 {
                     case true :
                         shouldDraw = true;
-                        Console.WriteLine(value);
                         state = value!;
                         break;
                     case false :
                         shouldDraw = false;
                         break;
                 }
-                
             }
         }
         
         SDL_DestroyTexture(texture);
         SDL_DestroyRenderer(SdlRenderer);
-        SDL_DestroyWindow(window);
+        SDL_DestroyWindow(SdlWindow);
         SDL_Quit();
     }
 
@@ -100,5 +97,4 @@ internal class Renderer
         draw(canvas, state);
         SDL_RenderPresent(SdlRenderer);
     }
-    
 }

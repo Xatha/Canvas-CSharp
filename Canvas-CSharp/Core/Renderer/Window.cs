@@ -26,4 +26,9 @@ public readonly struct Window
     {
         Renderer.RunApp(Title, ViewWidth, ViewHeight, state, draw, onKeyPressed);
     }
+    
+    public void RunSimpleApp(Func<Canvas, Canvas> draw)
+    {
+        Renderer.RunApp(Title, ViewWidth, ViewHeight, (byte)0, (canvas, _) => draw(canvas), (_, _) => new Option<byte>().None());
+    }
 }
