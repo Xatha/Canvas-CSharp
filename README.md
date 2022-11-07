@@ -1,6 +1,6 @@
 # Canvas-CSharp
 This library is a C# port of <a href="https://github.com/kfl/diku-canvas">diku-canvas</a> which is developed by <a href="https://github.com/kfl">Ken Friis Larsen</a> for The Department of Computer science (DIKU) at Copenhagen University.
-Like the F# implentation, this library is a simple graphics library which is an abstraction of SDL2, featuring a number of simple functions for devoloping and running 2d graphics on a canvas. 
+Like the F# implentation, this library is a simple functional graphics library which is an abstraction of SDL2, featuring a number of simple functions for devoloping and running 2d graphics on a canvas. 
 
 # How to use Canvas-CSharp
 We start by creating a window. 
