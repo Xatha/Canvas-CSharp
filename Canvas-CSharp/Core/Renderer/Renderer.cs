@@ -39,7 +39,7 @@ internal sealed class Renderer
             if (shouldDraw)
             {
                 #if DEBUG
-                Console.WriteLine("Draw!");
+                Console.de("Draw!");
                 var start = SDL_GetTicks();
                 
                 Draw(draw, state);
@@ -57,15 +57,10 @@ internal sealed class Renderer
 
             SDL_WaitEvent(out var sdlEvent);
 
-            if (sdlEvent.type == SDL_EventType.SDL_QUIT)
-            {
-                Console.WriteLine("Quit!");
-                break;
-            }
-            
+            if (sdlEvent.type == SDL_EventType.SDL_QUIT) break;
+
             if (sdlEvent.type == SDL_EventType.SDL_KEYDOWN)
             {
-  
                 var sdlKey = sdlEvent.key.keysym.sym;
                 var eOnKeyPressed = onKeyPressed(state, new Key(sdlKey));
             
@@ -91,9 +86,7 @@ internal sealed class Renderer
     private void Draw<TState>(Func<Canvas, TState, Canvas> draw, TState state) where TState : notnull
     {
         var canvas = new Canvas(_viewWidth, _viewHeight, this);
-        var p1 = new Point(0, 0);
-        var p2 = new Point(_viewWidth, _viewHeight);
-        Drawer.SetFillBox(canvas, ColorPicker.White, p1, p2);
+        Drawer.SetFillBox(canvas, ColorPicker.White, new Point(0, 0), new Point(_viewWidth, _viewHeight));
         draw(canvas, state);
         SDL_RenderPresent(SdlRenderer);
     }

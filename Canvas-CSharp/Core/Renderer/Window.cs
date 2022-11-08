@@ -9,7 +9,7 @@ public readonly struct Window
     public string Title { get; }
     public int ViewWidth { get; }
     public int ViewHeight { get; }
-    public SDL_WindowFlags WindowFlags { get; }
+    internal SDL_WindowFlags WindowFlags { get; }
     internal Renderer Renderer { get; } = null!;
 
     public Window(string title, uint viewWidth, uint viewHeight, SDL_WindowFlags windowFlags = 
@@ -22,11 +22,22 @@ public readonly struct Window
         Renderer = new Renderer(this);
     }
     
+    /// <summary>
+    /// Runs an interactive canvas.
+    /// </summary>
+    /// <param name="state">A state which will be changed throughout the program.</param>
+    /// <param name="draw">A function to determine how to draw the frame.</param>
+    /// <param name="onKeyPressed">A function to determine how to react when a key is pressed.</param>
+    /// <typeparam name="TState">The type of the state.</typeparam>
     public void RunApp<TState>(TState state, Func<Canvas, TState, Canvas> draw, Func<TState, Key, Option<TState>> onKeyPressed) where TState : notnull
     {
         Renderer.RunApp(Title, ViewWidth, ViewHeight, state, draw, onKeyPressed);
     }
     
+    /// <summary>
+    /// Runs a stateless non-interactive. Does not render more than one frame.
+    /// </summary>
+    /// <param name="draw">A function to determine how to draw the frame.</param>
     public void RunSimpleApp(Func<Canvas, Canvas> draw)
     {
         Renderer.RunApp(Title, ViewWidth, ViewHeight, (byte)0, (canvas, _) => draw(canvas), (_, _) => new Option<byte>().None());
