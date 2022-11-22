@@ -15,13 +15,13 @@ internal readonly struct TurtleCommand
         CommandType = commandType;
         MoveDistance = moveDistance;
     }
-    
+
     internal TurtleCommand(TurtleCommandType commandType, double turnAngleDegrees)
     {
         CommandType = commandType;
         TurnAngle = turnAngleDegrees;
     }
-    
+
     internal TurtleCommand(TurtleCommandType commandType, Color color)
     {
         CommandType = commandType;

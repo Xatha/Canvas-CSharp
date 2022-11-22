@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="ppy.SDL2-CS" Version="1.0.82" />
+        <PackageReference Include="ppy.SDL2-CS" Version="1.0.82"/>
     </ItemGroup>
 
 </Project>

@@ -6,6 +6,7 @@ namespace Canvas_CSharp.Core.Controls;
 public struct Key
 {
     public SDL_Keycode Value { get; }
+
     public Key(SDL_Keycode keycode)
     {
         Value = keycode;
@@ -13,7 +14,7 @@ public struct Key
 }
 
 /// <summary>
-/// Keys that can be pressed on the keyboard. Often used in onKeyPressed functions.
+///     Keys that can be pressed on the keyboard. Often used in onKeyPressed functions.
 /// </summary>
 public enum Keys
 {
@@ -58,5 +59,5 @@ public enum Keys
     RightArrow = SDLK_RIGHT,
     DownArrow = SDLK_DOWN,
     Space = SDLK_SPACE,
-    Escape = SDLK_ESCAPE,
+    Escape = SDLK_ESCAPE
 }

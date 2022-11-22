@@ -15,7 +15,6 @@ internal struct TurtleInterpreter
             var isPenUp = false;
 
             foreach (var command in turtle.TurtleCommandsList)
-            {
                 switch (command.CommandType)
                 {
                     case TurtleCommandType.PenUp:
@@ -42,12 +41,11 @@ internal struct TurtleInterpreter
                     default:
                         throw new ArgumentOutOfRangeException(command.CommandType.ToString());
                 }
-            }
 
             return canvas;
         };
     }
-    
+
     private static Point GetNewPosition(Point pos, double angleDeg, int distance)
     {
         var x = pos.X + distance * Math.Cos(angleDeg * (Math.PI / 180));
