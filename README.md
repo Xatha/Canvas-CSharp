@@ -35,4 +35,4 @@ But often we want to do more than just show a static image. We want make stuff r
 There is an example posted in examples folder to help you get started! 
 
 # Disclamer
-This library has no affiliations with DIKU nor Larsen. I wrote this as an excercise to try to understand and explore SDL2 and <a href="https://github.com/kfl/diku-canvas">diku-canvas</a> internal systems. This port is not 1:1. Some functions like ``Show()`` is missing and will not be ported over, while functions like the ``turtleCmds`` haven't been ported yet.
+This library has no affiliations with DIKU nor Larsen. I wrote this as an excercise to try to understand and explore SDL2 and <a href="https://github.com/kfl/diku-canvas">diku-canvas</a> internal systems. This port is not 1:1. Some functions like ``Show()`` is missing and will not be ported over.
