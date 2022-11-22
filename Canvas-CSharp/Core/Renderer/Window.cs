@@ -1,7 +1,7 @@
 using Canvas_CSharp.Core.Controls;
+using Canvas_CSharp.Core.Turtle;
 using Canvas_CSharp.Core.Utility;
 using static SDL2.SDL;
-
 namespace Canvas_CSharp.Core.Renderer;
 
 public readonly struct Window
@@ -35,11 +35,22 @@ public readonly struct Window
     }
     
     /// <summary>
-    /// Runs a stateless non-interactive. Does not render more than one frame.
+    /// Runs a stateless non-interactive app. Does not render more than one frame.
     /// </summary>
     /// <param name="draw">A function to determine how to draw the frame.</param>
     public void RunSimpleApp(Func<Canvas, Canvas> draw)
     {
         Renderer.RunApp(Title, ViewWidth, ViewHeight, (byte)0, (canvas, _) => draw(canvas), (_, _) => new Option<byte>().None());
+    }
+
+    /// <summary>
+    /// Runs a stateless non-interactive app where the image is drawn by turtle. Does not render more than one frame.
+    /// </summary>
+    /// <param name="turtle">A turtle to determine how to draw the frame.</param>
+    public void TurtleDraw(Turtle.Turtle turtle)
+    {
+        var draw = TurtleInterpreter.Interpret(turtle);
+        Renderer.RunApp(Title, ViewWidth, ViewHeight, (byte)0, (canvas, _) => draw(canvas), (_, _) => new Option<byte>().None());
+
     }
 }

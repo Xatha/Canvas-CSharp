@@ -14,7 +14,7 @@ public readonly struct Canvas
         Renderer = renderer;
     }
     
-    public Canvas(int viewWidth, int viewHeight, Window window)
+    internal Canvas(int viewWidth, int viewHeight, Window window)
     {
         ViewWidth = viewWidth;
         ViewHeight = viewHeight;

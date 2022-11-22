@@ -14,4 +14,13 @@ public readonly struct Color
         G = g;
         R = r;
     }
+
+    public int ConvertToInt()
+    {
+        return (A << 24) | (B << 16) | (G << 8) | R;
+    }
+    public static Color ConvertFromInt(int color)
+    {
+        return new Color((byte)(color & 0xFF), (byte)((color >> 8) & 0xFF), (byte)((color >> 16) & 0xFF), (byte)((color >> 24) & 0xFF));
+    }
 }
