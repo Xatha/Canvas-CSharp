@@ -111,6 +111,7 @@ internal sealed class Renderer
 
             SDL_RenderReadPixels(SdlRenderer, ref rect, format->format, surface->pixels, surface->pitch);
             SDL_SaveBMP((IntPtr)surface, path);
+            SDL_FreeSurface((IntPtr)surface);
         }
     }
 
