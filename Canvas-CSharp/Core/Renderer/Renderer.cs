@@ -53,7 +53,7 @@ internal sealed class Renderer
                 var time = end - start;
                 Console.WriteLine($"Frame took {time} ms.");
 #else
-
+                
                 Draw(draw, state);
 
 #endif
@@ -66,18 +66,10 @@ internal sealed class Renderer
 
             if (sdlEvent.type == SDL_EventType.SDL_KEYDOWN)
             {
-                var sdlKey = sdlEvent.key.keysym.sym;
-                var eOnKeyPressed = onKeyPressed(state, new Key(sdlKey));
-
-                switch (eOnKeyPressed.Some(out var value))
+                if (HandleInput(onKeyPressed, state, out var value, sdlEvent))
                 {
-                    case true:
-                        shouldDraw = true;
-                        state = value!;
-                        break;
-                    case false:
-                        shouldDraw = false;
-                        break;
+                    state = value;
+                    shouldDraw = true;
                 }
             }
         }
@@ -85,6 +77,60 @@ internal sealed class Renderer
         if (!Persistent) Destroy();
     }
 
+    internal void RunAppWithTimer<TState>(string title, int viewWidth, int viewHeight, TState state,
+        Func<Canvas, TState, Canvas> draw,
+        Func<TState, Key, Option<TState>> react) where TState : notnull
+    {
+        SDL_Init(SDL_INIT_VIDEO);
+
+        SdlWindow = SDL_CreateWindow(title, 50, 50, viewWidth, viewHeight, _windowFlags);
+        SDL_SetWindowTitle(SdlWindow, title);
+
+        SdlRenderer = SDL_CreateRenderer(SdlWindow, -1, SDL_RendererFlags.SDL_RENDERER_ACCELERATED);
+        _texture = SDL_CreateTexture(SdlRenderer, SDL_PIXELFORMAT_ABGR8888, 1, viewWidth, viewHeight);
+
+        const int FPS = 60;
+        const int frameDelay = 1000 / FPS;
+
+        var currentState = state;
+        
+        while (true)
+        {
+            var frameStart = SDL_GetTicks();
+            
+            if (SDL_PollEvent(out var sdlEvent) == 1)
+            {
+                if (sdlEvent.type == SDL_EventType.SDL_QUIT) break;
+                if (HandleInput(react, currentState, out var value, sdlEvent))
+                    currentState = value;
+            }
+            
+            Draw(draw, currentState);
+
+            var frameTime = SDL_GetTicks() - frameStart;
+
+            if (frameDelay > frameTime)
+                SDL_Delay(frameDelay - frameTime);
+        }
+        Destroy();
+    }
+
+    private bool HandleInput<TState>(Func<TState, Key, Option<TState>> onKeyPressed, TState currentState, out TState newState, SDL_Event sdlEvent) where TState : notnull
+    {
+        var sdlKey = sdlEvent.key.keysym.sym;
+        var eOnKeyPressed = onKeyPressed(currentState, new Key(sdlKey));
+
+        switch (eOnKeyPressed.Some(out var value))
+        {
+            case true:
+                newState = value!;
+                return true;
+            case false:
+                newState = default!;
+                return false;
+        }
+    }
+    
     internal void Destroy()
     {
         SDL_DestroyTexture(_texture);

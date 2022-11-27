@@ -85,6 +85,11 @@ public readonly struct Window
             (_, _) => new Option<byte>().None());
     }
 
+    public void RunAppWithTimer<TState>(TState state, Func<Canvas, TState, Canvas> draw,
+        Func<TState, Key, Option<TState>> onKeyPressed) where TState : notnull
+    {
+        Renderer.RunAppWithTimer(Title, ViewHeight, ViewWidth, state, draw, onKeyPressed);
+    }
     /// <summary>
     ///     Runs a stateless non-interactive app where the image is drawn by turtle. Does not render more than one frame.
     /// </summary>
